@@ -12,10 +12,7 @@ class TimeCallbacks: public BLECharacteristicCallbacks {
       std::string value = pCharacteristic->getValue();
       if (value.length() > 0) {
         Serial.print("New value: ");
-        for (int i = 0; i < value.length(); i++){
-          Serial.print(value[i]);
-        }
-        Serial.println();
+        Serial.println(value.c_str());
       }
     }
 };
