@@ -4,7 +4,9 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 
+#include "SSD1306.h"
 #include <TimeLib.h>
+SSD1306  display(0x3c, 5, 4);
 
 // Version 4 UUIDs (Basically Random)
 #define SERVICE_UUID             "3efad57b-7510-46b9-ad7d-6a4411b66a53" // Generic CoupleCounter Service
@@ -24,9 +26,11 @@ void setup() {
     BLESetup();
   }
 
+  DisplayInit();  
+  DisplayClock();
+
   String timenow = twoDigits(hour()) + ":" + twoDigits(minute()) + ":" + twoDigits(second());
   Serial.println(timenow);
-  Serial.println(millis());
   
   Serial.println("Sleeping!");
   UnixTime = now();
@@ -70,5 +74,21 @@ void BLESetup(){
 
 String twoDigits(int d){
   return (d<10) ? '0'+String(d) : String(d);
+}
+
+void DisplayInit(){
+  display.init();
+  //display.flipScreenVertically();
+  display.setFont(ArialMT_Plain_10);
+}
+
+void DisplayClock(){
+  //display.clear();
+  Serial.println("Drawing");
+  display.setFont(ArialMT_Plain_10);
+  display.setTextAlignment(TEXT_ALIGN_CENTER_BOTH);
+  String timenow = twoDigits(hour()) + ":" + twoDigits(minute()) + ":" + twoDigits(second());
+  display.drawString(64, 32, timenow);
+  display.display();
 }
 
