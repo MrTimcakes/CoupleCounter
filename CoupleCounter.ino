@@ -18,6 +18,8 @@ void setup(){
   display.drawString(0, 0, Aliases[random(arr_len(Aliases))] + ",");
   display.drawStringMaxWidth( 0, 10, 128, Message );
   display.display();
+
+  ESP.deepSleep(3600e6);
 }
 
 void loop(){
