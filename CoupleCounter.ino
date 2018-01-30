@@ -46,9 +46,11 @@ void DisplayPhrase(){
   
   DateTime now = rtc.now();
   Message.replace("[x]", String((now.unixtime() - EventTimes[EventID]) / 86400) + " Days");
-  
+
+  display.setFont(ArialMT_Plain_16);
   display.drawString(0, 0, Aliases[random(arr_len(Aliases))] + ",");
-  display.drawStringMaxWidth( 0, 10, 128, Message );
+  display.setFont(ArialMT_Plain_10);
+  display.drawStringMaxWidth( 0, 16, 128, Message );
   display.display();
 }
 
